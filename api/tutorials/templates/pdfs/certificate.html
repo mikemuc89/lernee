@@ -1,0 +1,209 @@
+{% load static %}
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+    body {
+        font-size: 13px;
+        margin: 0px;
+        border: 16px solid #BBBBBB;
+        font-family: sans-serif;
+    }
+    .content-box {
+        box-sizing: border-box;
+        padding: 20px 32px;
+        width: 100%;
+        height: 18.3cm;
+        background-image: url("/static/assets/img/cert_bg.png");
+        background-size: 15%;
+    }
+    .section {
+        box-sizing: border-box;
+        display: inline-block;
+        padding: 10px;
+        vertical-align: top;
+        width: 49.5%;
+    }
+    .row {
+        display: block;
+        margin: 10px 0;
+    }
+    .row.big {
+        color: #3C78B4;
+        padding: 20px;
+        margin: 0;
+        font-weight: bold;
+        font-size: 36px;
+        text-align: center;
+        border-left: 8px solid #3C78B4;
+    }
+    .row.small {
+        font-size: 16px;
+        color: #999999;
+        padding: 20px 0;
+        margin: 0;
+        text-align: center;
+        border-left: 8px solid #3C78B4;
+        font-weight: bold;
+    }
+    .logo.section {
+        width: 39%;
+    }
+    .logo-img {
+        background-image: url("/static/assets/img/logo.png");
+        background-size: 100%;
+        background-position: center center;
+        background-repeat: no-repeat;
+        height: 150px;
+        width: 150px;
+        float: right;
+        margin-right: 15%;
+    }
+    table {
+        font-size: inherit;
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0;
+    }
+    .table.top {
+        margin-top: 0px;
+        padding: 0;
+        background-color: #3C78B4;
+        color: #FFFFFF;
+        border-color: #3C78B4;
+        border-style: solid;
+        border-width: 20px 0;
+        box-sizing: border-box;
+        height: 5cm;
+    }
+    .table.bottom {
+        margin-bottom: 0px;
+        padding: 0;
+        background-color: #3C78B4;
+        color: #FFFFFF;
+        border-color: #3C78B4;
+        border-style: solid;
+        border-width: 10px 0;
+        box-sizing: border-box;
+        height: 2cm;
+    }
+    .table.top .label {
+        color: #DDDDDD;
+    }
+    .table.top .value {
+        font-size: 15px;
+    }
+    .cert-title {
+        text-align: left;
+        font-size: 36px;
+        margin-left: 15%;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    .cert-subtitle {
+        text-align: left;
+        font-size: 18px;
+        margin-left: 15%;
+        padding-left: 0.5cm;
+        font-weight: bold;
+        color: #BBBBBB;
+        text-transform: uppercase;
+    }
+    .cert-footer {
+        padding: 0 36px;
+        text-align: right;
+    }
+    .cert-icon {
+        background: url("/static/assets/img/cert_icon.png");
+        height: 200px;
+        width: 200px;
+        position: absolute;
+        background-size: 100%;
+        left: 144px;
+        top: 704px;
+    }
+    .pre-ribbon {
+        background-color: #BBBBBB;
+        box-shadow: 0 0 20px #666666;
+    }
+    .ribbon {
+        position: absolute;
+        top: 190px;
+        left: 50%;
+        border: 80px solid #BBBBBB;
+        box-sizing: border-box;
+        border-bottom: 20px solid transparent;
+        margin-left: -80px;
+    }
+    .pre-ribbon {
+        position: absolute;
+        top: 0px;
+        left: 50%;
+        margin-left: -80px;
+        width: 160px;
+        height: 206px;
+    }
+</style>
+</head>
+<body>
+<div id="content" style="width: 100%;">
+    <div class="pre-ribbon"></div>
+    <div class="ribbon"></div>
+    <table class="table top">
+        <tr>
+            <td style="width: 50%; vertical-align: middle">
+                <div class="row">
+                    <div class="cert-title">Certyfikat</div>
+                    <div class="cert-subtitle">uczestnictwa</div>
+                </div>
+            </td>
+            <td style="width: 50%">
+                <div class="logo-img"></div>
+            </td>
+        </tr>
+    </table>
+    <div class="content-box">
+    <table style="height: 80%;">
+        <tr>
+            <td style="width: 100%; height: 100%; vertical-align: middle; padding: 0 120px;">
+                <div class="row small">
+                    w kursie e-learningowym:
+                </div>
+                <div class="row big">
+                    {{ data.course_name }}
+                </div>
+                <div class="row small">
+                    w którym udział wziął i ukończył test z wynikiem pozytywnym:
+                </div>
+                <div class="row big">
+                    {{ data.issued_to }}
+                </div>
+            </td>
+        </tr>
+    </table>
+    <table style="height: 10%;">
+        <tr>
+            <td style="width: 65%;">
+            </td>
+            <td style="width: 25%; border-bottom: 3px solid #3C78B4; text-align: center; font-size: 18px;">
+                {{ issuer.person }}
+            </td>
+            <td style="width: 10%;">
+            </td>
+        </tr>
+    </table>
+    <div class="cert-icon"></div>
+    </div>
+    <table class="table bottom">
+        <tr>
+            <td style="width: 100%; vertical-align: middle">
+                <div class="row">
+                    <div class="cert-footer">{{ issuer.name }}, {{ issuer.address }}, NIP: {{ issuer.nip }}, REGON: {{ issuer.regon }}, e-mail: {{ issuer.mail }}</div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{% load filters %}
+
+<!DOCTYPE html>
+<html>
+    <body>
+        Hello there{% if user.first_name and user.last_name %}, {{ user.first_name }} {{ user.last_name }}{% elif user.first_name %}, {{ user.first_name }}{% elif user.last_name %}, Mr/Mrs {{ user.last_name }}{% else %}{{ user.username }}{% endif %}!<br/><br/>
+        It's <strong>KitAlbum.net</strong>. You just registered to our site and we would like to welcome you warmly.<br/><br/>
+
+        Last thing you need to do is to activate your account by visiting following link: <a href="http://kitalbum.net/auth/confirm-register/{{ user_additional.secret_key }}/{{ user_additional.id_hash }}" target="_blank">http://kitalbum.net/auth/confirm-register/{{ user_additional.secret_key }}/{{ user_additional.id_hash }}</a><br/><br/>
+
+        Enjoy our site and have a nice day!<br/><br/>
+    </body>
+</html>

@@ -1,0 +1,438 @@
+{% load static %}
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style>
+      body {
+        font-size: 13px;
+        margin: 0px;
+        border-left: 16px solid #BBBBBB;
+        border-bottom: 16px solid #3C78B4;
+        border-top: 16px solid #3C78B4;
+        font-family: sans-serif;
+      }
+      .content-box {
+        box-sizing: border-box;
+        padding: 0px 32px;
+        width: 100%;
+      }
+      .label {
+        color: #666;
+      }
+      .seller-nip.label, .seller-email.label, .seller-phone.label, .buyer-nip.label,
+      .buyer-email.label, .seller-regon.label, .buyer-regon.label, .buyer-phone.label {
+        padding-left: 10px;
+      }
+      .label::after {
+        content: ":";
+        margin-right: 5px;
+      }
+      .value {
+        display: inline-block;
+        font-weight: bold;
+        vertical-align: bottom;
+      }
+      .value.light {
+        font-weight: normal;
+      }
+      .value:first-child {
+        padding-left: 10px;
+      }
+      .section {
+        box-sizing: border-box;
+        display: inline-block;
+        padding: 10px;
+        vertical-align: top;
+        width: 49.5%;
+      }
+      .row {
+        display: block;
+        margin: 10px 0;
+      }
+      .row.header {
+        border-top: 8px solid #3C78B4;
+        color: #3C78B4;
+        padding: 10px;
+        font-weight: bold;
+        font-size: 20px;
+      }
+      .data.section {
+        width: 60%;
+      }
+      .logo.section {
+        width: 39%;
+      }
+      .logo-img {
+        background-image: url("/static/assets/img/logo.png");
+        background-size: 100%;
+        background-position: center center;
+        background-repeat: no-repeat;
+        height: 150px;
+        width: 150px;
+      }
+      .buyer-name.value, .seller-name.value {
+        font-size: 18px;
+      }
+      .seller.section .label, .buyer.section .label {
+        padding-left: 10px;
+      }
+      .items.section {
+        width: 100%;
+      }
+      .vat-summary.section {
+        float: right;
+      }
+      .payment.section {
+        width: 100%;
+      }
+      tr.head td {
+        border-bottom: 1px solid #3C78B4;
+        color: #3C78B4;
+        height: 30px;
+      }
+      tr.item td, tr.summary-item td, tr.summary-item-summary td {
+        height: 30px;
+      }
+      tr.summary-item-summary td {
+        border-top: 1px solid #3C78B4;
+        border-bottom: 1px solid #3C78B4;
+        background-color: #E4F0F5;
+        color: #3C78B4;
+        font-weight: bold;
+      }
+      td.lp {
+        width: 4%;
+        text-align: left;
+      }
+      td.name {
+        width: 25%;
+        text-align: left;
+      }
+      td.quantity {
+        width: 5%;
+        text-align: center;
+      }
+      td.measure {
+        width: 5%;
+        text-align: center;
+      }
+      td.vat {
+        width: 5%;
+        text-align: right;
+      }
+      td.price-net {
+        width: 14%;
+        text-align: right;
+      }
+      td.price-gross {
+        width: 14%;
+        text-align: right;
+      }
+      td.value-net {
+        width: 14%;
+        text-align: right;
+      }
+      td.value-gross {
+        width: 14%;
+        text-align: right;
+      }
+      td.summary-label {
+        width: 10%;
+        text-align: right;
+      }
+      td.summary-net {
+        width: 25%;
+        text-align: right;
+      }
+      td.summary-vat {
+        width: 15%;
+        text-align: right;
+      }
+      td.summary-vat-value {
+        width: 25%;
+        text-align: right;
+      }
+      td.summary-gross {
+        width: 25%;
+        text-align: right;
+      }
+      .amount.value {
+        font-size: 26px;
+      }
+      .realized.value.box {
+        padding-left: 0px;
+        text-align: center;
+        width: 70%;
+        height: 40px;
+        line-height: 40px;
+        border: 1px solid #3C78B4;
+        font-size: 26px;
+        margin-left: 15%;
+        margin-top: 50px;
+        color: #3C78B4;
+      }
+      .issuer-value, .issuer-label {
+        text-align: center;
+        display: block;
+      }
+      .issuer-value {
+        font-weight: bold;
+        border-bottom: 1px solid #666;
+        height: 30px;
+      }
+      .issuer-label {
+        color: #666;
+      }
+      table {
+        font-size: inherit;
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0;
+      }
+      .table.top {
+        margin-top: 0px;
+        padding: 0;
+        background-color: #3C78B4;
+        color: #FFFFFF;
+        border-color: #3C78B4;
+        border-style: solid;
+        border-width: 30px 0;
+      }
+      .invoice-title {
+        margin: 20px 0;
+        text-align: center;
+        width: 100%;
+        font-size: 26px;
+        background-color: #3C78B4;
+        color: #FFFFFF;
+        font-weight: bold;
+      }
+      .table.top .label {
+        color: #DDDDDD;
+      }
+      .table.top .value {
+        font-size: 15px;
+      }
+      .invoice-number.value {
+        font-size: 26px !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="content" style="width: 100%;">
+      <table class="table top">
+        <tr>
+          <td style="width: 20%; vertical-align: middle">
+            <div class="row">
+              <div class="invoice-title">Faktura</div>
+            </div>
+          </td>
+          <td style="width: 60%;">
+            <div class="row">
+              <span class="invoice-number label">Numer</span><span class="invoice-number value">{{ data.number }}</span>
+            </div>
+            <div class="row">
+              <span class="issue-date label">Data i miejsce wystawienia</span><span class="issue-date value">{{ data.issue_date }}, {{ data.issue_place }}</span>
+            </div>
+            <div class="row">
+              <span class="service-date label">Data dostawy/wykonania usług</span><span class="service-date value">{{ data.service_date }}</span>
+            </div>
+            <div class="row">
+              <span class="payment-method label">Forma i termin płatności</span><span class="payment-method value">{{ data.payment_method }}, {{ data.payment_date }}{% if data.payment_date_range %} ({{ data.payment_date_range }}){% endif %}</span>
+            </div>
+          </td>
+          <td style="width: 20%">
+            <div class="logo-img"></div>
+          </td>
+        </tr>
+      </table>
+      <div class="content-box">
+        <table>
+          <tr>
+            <td style="width: 48%; vertical-align: top;">
+              <div class="row header">Sprzedawca</div>
+              <div class="row">
+                <span class="seller-name value">{{ seller.name }}</span>
+              </div>
+              <div class="row">
+                <span class="seller-address value light">{{ seller.address }}</span>
+              </div>
+              <div class="row">
+                <span class="seller-nip label">NIP</span><span class="seller-nip value light">{{ seller.nip }}</span>
+              </div>
+            {% if seller.regon %}
+              <div class="row">
+                <span class="seller-regon label">REGON</span><span class="seller-regon value light">{{ seller.regon }}</span>
+              </div>
+            {% endif %}
+            {% if seller.mail %}
+              <div class="row">
+                <span class="seller-email label">e-mail</span><span class="seller-email value light">{{ seller.mail }}</span>
+              </div>
+            {% endif %}
+            {% if seller.phone %}
+              <div class="row">
+                <span class="seller-phone label">tel.</span><span class="seller-phone value light">{{ seller.phone }}</span>
+              </div>
+            {% endif %}
+            {% if seller.website %}
+              <div class="row">
+                <span class="seller-website value light">{{ seller.website }}</span>
+              </div>
+            {% endif %}
+            </td>
+            <td style="width: 4%; vertical-align: top;">
+            </td>
+            <td style="width: 48%; vertical-align: top;">
+              <div class="row header">Nabywca</div>
+              <div class="row">
+                <span class="buyer-name value">{{ buyer.name }}</span>
+              </div>
+              <div class="row">
+                <span class="buyer-address value light">{{ buyer.address }}</span>
+              </div>
+            {% if buyer.nip %}
+              <div class="row">
+                <span class="buyer-nip label">NIP</span><span class="buyer-nip value light">{{ buyer.nip }}</span>
+              </div>
+            {% endif %}
+            {% if buyer.regon %}
+              <div class="row">
+                <span class="buyer-regon label">REGON</span><span class="buyer-regon value light">{{ buyer.regon }}</span>
+              </div>
+            {% endif %}
+            {% if buyer.mail %}
+              <div class="row">
+                <span class="buyer-email label">e-mail</span><span class="buyer-email value light">{{ buyer.mail }}</span>
+              </div>
+            {% endif %}
+            {% if buyer.phone %}
+              <div class="row">
+                <span class="buyer-phone label">tel.</span><span class="buyer-phone value light">{{ buyer.phone }}</span>
+              </div>
+            {% endif %}
+            </td>
+          </tr>
+        </table>
+        <table>
+          <tr class="head">
+            <td class="lp">Lp.</td>
+            <td class="name">Nazwa towaru / usługi</td>
+            <td class="quantity">Ilość</td>
+            <td class="measure">Miara</td>
+            <td class="vat">VAT</td>
+            <td class="price-net">Cena netto</td>
+            <td class="price-gross">Cena brutto</td>
+            <td class="value-net">Wartość netto</td>
+            <td class="value-gross">Wartość brutto</td>
+          </tr>
+        {% for item in items %}
+          <tr class="item">
+            <td class="lp">{{ forloop.counter }}</td>
+            <td class="name">{{ item.name }}</td>
+            <td class="quantity">{{ item.quantity }}</td>
+            <td class="measure">{{ item.measure }}</td>
+            <td class="vat">{{ item.vat }}%</td>
+            <td class="price-net">{{ item.net_price.value }} {{ item.net_price.currency }}</td>
+            <td class="price-gross">{{ item.gross_price.value }} {{ item.gross_price.currency }}</td>
+            <td class="value-net">{{ item.net_value.value }} {{ item.net_value.currency }}</td>
+            <td class="value-gross">{{ item.gross_value.value }} {{ item.gross_value.currency }}</td>
+          </tr>
+        {% endfor %}
+        </table>
+        <table>
+          <tr>
+            <td style="width: 31%; vertical-align: top;">
+              <div class="row">
+              {% if data.is_paid %}
+                <span class="realized value box">Zapłacona</span>
+              {% endif %}
+              </div>
+            </td>
+            <td style="width: 4%; vertical-align: top;"></td>
+            <td style="width: 65%; vertical-align: middle;">
+              <div class="row header">Suma wg stawek VAT</div>
+              <table style="width: 100%;">
+                <tr class="head">
+                  <td class="summary-label"></td>
+                  <td class="summary-net">Netto</td>
+                  <td class="summary-vat">VAT</td>
+                  <td class="summary-vat-value">Kwota VAT</td>
+                  <td class="summary-gross">Brutto</td>
+                </tr>
+              {% for item in summary_items %}
+                <tr class="summary-item">
+                {% if forloop.first %}
+                  <td class="summary-label">W tym</td>
+                {% else %}
+                  <td class="summary-label"></td>
+                {% endif %}
+                  <td class="summary-net">{{ item.net_value.value }} {{ item.net_value.currency }}</td>
+                  <td class="summary-vat">{{ item.vat }}%</td>
+                  <td class="summary-vat-value">{{ item.vat_value.value }} {{ item.vat_value.currency }}</td>
+                  <td class="summary-gross">{{ item.gross_value.value }} {{ item.gross_value.currency }}</td>
+                </tr>
+              {% endfor %}
+                <tr class="summary-item-summary">
+                  <td class="summary-label">Razem</td>
+                  <td class="summary-net">{{ summary.net_value.value }} {{ summary.net_value.currency }}</td>
+                  <td class="summary-vat"></td>
+                  <td class="summary-vat-value">{{ summary.vat_value.value }} {{ summary.vat_value.currency }}</td>
+                  <td class="summary-gross">{{ summary.gross_value.value }} {{ summary.gross_value.currency }}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <td style="width: 100%;">
+              <div class="row">
+                <span class="amount label">Do zapłaty</span><span class="amount value">{{ summary.gross_value.value }} {{ summary.gross_value.currency }}</span>
+              </div>
+              <div class="row">
+                <span class="amount-word label">Słownie</span><span class="amount-word value">{{ summary.literal_value }}</span>
+              </div>
+              <div class="row">
+                <span class="account label">Konto</span><span class="account value">{{ bank.account }}</span>
+              </div>
+            {% if bank.name %}
+              <div class="row">
+                <span class="bank label">Bank</span><span class="bank value">{{ bank.name }}</span>
+              </div>
+            {% endif %}
+            {% if bank.owner %}
+              <div class="row">
+                <span class="account-owner label">Właściciel</span><span class="account-owner value">{{ bank.owner }}</span>
+              </div>
+            {% endif %}
+            {% if bank.address %}
+              <div class="row">
+                <span class="account-address label">Adres</span><span class="account-address value">{{ bank.address }}</span>
+              </div>
+            {% endif %}
+            {% if bank.swift %}
+              <div class="row">
+                <span class="account-swift label">Kod SWIFT</span><span class="account-swift value">{{ bank.swift }}</span>
+              </div>
+            {% endif %}
+            </td>
+          </tr>
+        </table>
+        <table style="width: 50%;">
+          <tr>
+            <td style="width: 100%;">
+              <div class="row">
+                <span class="issuer-value">{{ data.issuer }}</span>
+              </div>
+              <div class="row">
+                <span class="issuer-label">Fakturę wystawił</span>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
